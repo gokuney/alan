@@ -29,18 +29,19 @@ class Welcome extends CI_Controller {
 		//First, get the expected inputs and store them in an array 
 		//To evaluate or do other operations
 
-		$firstname = $this->input->post('firstname' , TRUE);
-		$lastname = $this->input->post('lastname' , TRUE);
-		$email = $this->input->post('email' , TRUE);
-		$password = $this->input->post('password' , TRUE);
-		$confirm = $this->input->post('confirm' , TRUE);
-		$code = $this->input->post('code' , TRUE);
-		$mobile = $this->input->post('mobile' , TRUE);
-		$website = $this->input->post('website' , TRUE);
-		$address = $this->input->post('address' , TRUE);
-		$comment = $this->input->post('comment' , TRUE);
+		$firstname = $this->input->post('firstname' );
+		$lastname = $this->input->post('lastname' );
+		$email = $this->input->post('email' );
+		$password = $this->input->post('password' );
+		$confirm = $this->input->post('confirm' );
+		$code = $this->input->post('code' );
+		$mobile = $this->input->post('mobile' );
+		$website = $this->input->post('website' );
+		$address = $this->input->post('address' );
+		$comment = $this->input->post('comment' );
 
 
+$config = array(
 		//Set validation rules
 		array(
 
@@ -48,7 +49,7 @@ class Welcome extends CI_Controller {
 
 		  'label' =>  'First Name' ,
 
-		   'rules' => 'required | alpha | max_length[20]');
+		   'rules' => 'required|alpha|max_length[20]'),
 
 		array(
 
@@ -56,7 +57,7 @@ class Welcome extends CI_Controller {
 
 		  'label' =>  'Last Name' ,
 
-		  'rules' => 'required | alpha | max_length[20]');
+		  'rules' => 'required|alpha|max_length[20]'),
 
 		array(
 
@@ -64,13 +65,14 @@ class Welcome extends CI_Controller {
 
 		  'label' =>  'Email' ,
 
-		  'required | valid_email');
+		  'rules' =>  'required|valid_email'),
 
 		array(
 
 		 'field' => 'password'  ,
 
-		  'label' =>  'Password' , 'required');
+		  'label' =>  'Password' ,
+		  'rules' =>   'required'),
 
 		array(
 
@@ -78,7 +80,7 @@ class Welcome extends CI_Controller {
 
 			'label' =>  'Confirm Password' ,
 
-			 'rules' => 'required | matches[password]');
+			 'rules' => 'required|matches[password]'),
 
 		array(
 
@@ -86,37 +88,42 @@ class Welcome extends CI_Controller {
 
 		  'label' =>  'Code' ,
 
-		  'required | max_length[10] | is_natural' 
-			);
+		  'rules' =>  'required|max_length[10]|is_natural' 
+			),
 
 		array(
 
 		 'field' => 'mobile'  ,
 
-		  'label' =>  'Mobile' , 'required | max_length[10] | is_natural');
+		  'label' =>  'Mobile' ,
+		  'rules' =>  'required|max_length[10]|is_natural'),
 
 		array(
 
 		 'field' => 'website'  ,
 
-		  'label' =>  'Website' , 'required | valid_url');
+		  'label' =>  'Website' ,
+		  'rules' =>  'required|valid_url'),
 
 		array(
 
 		 'field' => 'address'  ,
 
-		  'label' =>  'Address' , 'required | alpha_dash');
+		  'label' =>  'Address' ,
+		  'rules' =>  'required|alpha_dash'),
 
 		array(
 
 		 'field' => 'comment'  ,
 
-		  'label' =>  'Comment' , 'required | alpha_dash | min_length[50] | max_length[200]');
+		  'label' =>  'Comment' ,
+		  'rules' =>  'required|alpha_dash|min_length[50]|max_length[200]')
 
+);
 
+	$this->form_validation->set_rules($config);
 
-
-		if ($this->form_validation->run($this) == FALSE)
+		if ($this->form_validation->run() == FALSE)
                 {
                         $this->load->view('header');
                         $this->load->view('form');
